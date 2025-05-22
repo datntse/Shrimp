@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trái tim & Tôm rơi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #fff0f5 0%, #ffc2d1 100%);
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .message {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #b30059;
+      font-weight: bold;
+      z-index: 10;
+      animation: fadeIn 2s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .falling {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: fall linear forwards;
+      opacity: 0.9;
+    }
+    .message {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  font-weight: bold;
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #ff1493, #ff69b4, #ffa07a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 2s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <div class="message">
+        <span class="typed-text">Bẻo Ngọc ơi đừng buồn nữa, lên Tén Đẹt chở đi ăn Mì Ý Sốt Kem Tôm 🍤</span>
+      </div>
+
+<script>
+  let heartInterval;
+  let shrimpInterval;
+
+  const heartImg = 'https://cdn-icons-png.flaticon.com/512/833/833472.png'; // ❤️ PNG icon
+  const shrimpImg = 'https://cdn-icons-png.flaticon.com/512/2346/2346897.png'; // 🦐 PNG icon
+
+  function createFallingItem(imageUrl) {
+    const item = document.createElement('div');
+    item.className = 'falling';
+    item.style.backgroundImage = `url('${imageUrl}')`;
+    item.style.left = Math.random() * 100 + 'vw';
+    item.style.animationDuration = (3 + Math.random() * 2) + 's';
+    item.style.zIndex = Math.floor(Math.random() * 3);
+    item.style.opacity = Math.random() * 0.7 + 0.4;
+    item.style.width = item.style.height = (30 + Math.random() * 20) + 'px';
+
+    document.body.appendChild(item);
+
+    setTimeout(() => {
+      item.remove();
+    }, 6000);
+  }
+
+  // Giai đoạn 1: Trái tim rơi
+  heartInterval = setInterval(() => {
+    createFallingItem(heartImg);
+  }, 150);
+
+  // Sau 5s -> ngừng trái tim, bắt đầu tôm
+  setTimeout(() => {
+    clearInterval(heartInterval);
+    shrimpInterval = setInterval(() => {
+      createFallingItem(shrimpImg);
+    }, 180);
+  }, 5000);
+</script>
+
+</body>
+</html>
